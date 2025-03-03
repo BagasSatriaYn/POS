@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('m_level', function (Blueprint $table) {
-            $table->id('level_id');
-            $table->string('level_kode', 10)->unique();
-            $table->string('level_nama', 100);
+        Schema::create('t_stok', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('barang_id')->constrained('m_barang')->onDelete('cascade');
+            $table->integer('jumlah');
+            $table->enum('jenis', ['masuk', 'keluar']);
             $table->timestamps();
         });
     }
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('m_level');
+        Schema::dropIfExists('t_stok');
     }
 };

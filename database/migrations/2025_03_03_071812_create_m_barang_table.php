@@ -11,19 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('m_level', function (Blueprint $table) {
-            $table->id('level_id');
-            $table->string('level_kode', 10)->unique();
-            $table->string('level_nama', 100);
+        Schema::create('m_barang', function (Blueprint $table) {
+            $table->id();
+            $table->string('nama_barang', 100);
+            $table->string('kode_barang', 50)->unique();
+            $table->integer('harga');
+            $table->integer('stok_awal')->default(0);
             $table->timestamps();
         });
-    }
+    }   
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('m_level');
+        Schema::dropIfExists('m_barang');
     }
 };

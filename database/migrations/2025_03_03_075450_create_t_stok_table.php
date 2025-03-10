@@ -12,11 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('t_stok', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('barang_id')->constrained('m_barang')->onDelete('cascade');
-            $table->integer('jumlah');
-            $table->enum('jenis', ['masuk', 'keluar']);
+            $table->id('stok_id');
+            $table->unsignedBigInteger('barang_id')->index();
+            $table->unsignedBigInteger('user_id')->index();
+            $table->dateTime('stok_tanggal');
+            $table->integer('stok_jumlah');
             $table->timestamps();
+
+            // Foreign Key
+            $table->foreign('barang_id')->references('barang_id')->on('m_barang');
+            $table->foreign('user_id')->references('user_id')->on('m_user');
         });
     }
 

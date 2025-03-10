@@ -12,14 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('m_barang', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama_barang', 100);
-            $table->string('kode_barang', 50)->unique();
-            $table->integer('harga');
-            $table->integer('stok_awal')->default(0);
+            $table->id('barang_id'); // Primary Key & Auto Increment
+            $table->unsignedBigInteger('kategori_id')->index();
+            $table->string('barang_kode', 10);
+            $table->string('barang_nama', 100);
+            $table->integer('harga_beli');
+            $table->integer('harga_jual');
             $table->timestamps();
+
+            // Foreign Key
+            $table->foreign('kategori_id')->references('kategori_id')->on('m_kategori');
         });
-    }   
+    }
 
     /**
      * Reverse the migrations.

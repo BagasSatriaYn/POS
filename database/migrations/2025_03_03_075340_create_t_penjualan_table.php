@@ -12,11 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('t_penjualan', function (Blueprint $table) {
-            $table->id();
-            $table->string('kode_transaksi', 50)->unique();
-            $table->date('tanggal_penjualan');
-            $table->integer('total_harga')->default(0);
+            $table->id('penjualan_id');
+            $table->unsignedBigInteger('user_id')->index();
+            $table->string('pembeli');
+            $table->string('penjualan_kode');
+            $table->dateTime('penjualan_tanggal');
             $table->timestamps();
+
+            // Foreign Key
+            $table->foreign('user_id')->references('user_id')->on('m_user');
         });
     }
 
